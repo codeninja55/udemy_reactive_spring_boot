@@ -3,6 +3,7 @@ package me.codeninja55.learnreactive.fluxandmonoplayground
 import org.junit.jupiter.api.Test
 import reactor.core.publisher.Flux
 import reactor.test.StepVerifier
+import reactor.test.scheduler.VirtualTimeScheduler
 import java.time.Duration
 import java.util.function.BiFunction
 
@@ -24,18 +25,26 @@ class FluxAndMonoCombinedTest {
 
     @Test
     fun testCombineFluxWithDelay() {
+        VirtualTimeScheduler.getOrSet()
         val testStr1: Flux<String> = Flux.just("A", "B", "C")
-            .delayElements(Duration.ofMillis(10))
+            .delayElements(Duration.ofSeconds(1))
         val testStr2: Flux<String> = Flux.just("D", "E", "F")
-            .delayElements(Duration.ofMillis(10))
+            .delayElements(Duration.ofSeconds(1))
 
         val mergedTestFlux: Flux<String> = Flux.concat(testStr1, testStr2)
 
-        StepVerifier.create(mergedTestFlux)
+        StepVerifier.withVirtualTime { mergedTestFlux }
             .expectSubscription()
+            .thenAwait(Duration.ofSeconds(6))
             .expectNext("A", "B", "C")
             .expectNext("D", "E", "F")
             .verifyComplete()
+
+        /*StepVerifier.create(mergedTestFlux)
+            .expectSubscription()
+            .expectNext("A", "B", "C")
+            .expectNext("D", "E", "F")
+            .verifyComplete()*/
     }
 
     @Test
