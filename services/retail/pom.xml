@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>me.codeninja55</groupId>
-	<artifactId>reactive-retail</artifactId>
+	<artifactId>retail</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>reactive-retail</name>
-	<description>Demo project for Spring Boot Reactive Streams</description>
+	<name>retail</name>
+	<description>Demo project for Spring Webflux</description>
 
 	<properties>
 		<java.version>1.8</java.version>

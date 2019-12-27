@@ -9,6 +9,8 @@ spring:
     host: "localhost"
     port: 27017
     database: "retail-dev"
+    username: "codeninja"
+    password: "learnreactive"
 
 ---
 spring:
@@ -16,9 +18,7 @@ spring:
   data.mongodb:
     host: "localhost"
     port: 27017
-    database: "retail-dev"
-    username: "test"
-    password: "test"
+    database: "retail-stage"
 
 ---
 spring:
@@ -26,6 +26,4 @@ spring:
   data.mongodb:
     host: "localhost"
     port: 27017
-    database: "retail-dev"
-    username: $USERNAME
-    password: $PASSWORD
+    database: "retail-prod"

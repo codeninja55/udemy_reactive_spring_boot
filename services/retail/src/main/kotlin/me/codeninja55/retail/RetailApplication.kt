@@ -1,11 +1,11 @@
-package me.codeninja55.reactiveretail
+package me.codeninja55.retail
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ReactiveRetailApplication
+class RetailApplication
 
 fun main(args: Array<String>) {
-	runApplication<ReactiveRetailApplication>(*args)
+	runApplication<RetailApplication>(*args)
 }
