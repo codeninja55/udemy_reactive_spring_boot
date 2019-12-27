@@ -21,7 +21,7 @@ class SampleRouterConfig {
         accept(MediaType.APPLICATION_JSON).nest {
             "/functional".nest {
                 "/flux".nest { GET("/", handlerFunc::getFlux) }
-                "/mono".nest { GET("/") { req ->
+                "/mono".nest { GET("/") { _ ->
                     ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(Mono.just(1), Int::class.java)
