@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: "development"
+
+---
+spring:
+  profiles: "development"
+  data.mongodb:
+    host: "localhost"
+    port: 27017
+    database: "retail-dev"
+
+---
+spring:
+  profiles: "staging"
+  data.mongodb:
+    host: "localhost"
+    port: 27017
+    database: "retail-dev"
+    username: "test"
+    password: "test"
+
+---
+spring:
+  profiles: "production"
+  data.mongodb:
+    host: "localhost"
+    port: 27017
+    database: "retail-dev"
+    username: $USERNAME
+    password: $PASSWORD

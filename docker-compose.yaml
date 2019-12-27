@@ -9,7 +9,7 @@ services:
     container_name: mongo
     volumes:
     - ./services/mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-    - ./services/mongodb/mongo-volume:/data/db
+#    - ./services/mongodb/mongo-volume:/data/db
     ports:
       - 27017:27017
     expose:
