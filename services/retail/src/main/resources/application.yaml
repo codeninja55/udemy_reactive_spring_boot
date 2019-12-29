@@ -12,6 +12,14 @@ spring:
 
 ---
 spring:
+  profiles: "testing"
+  data.mongodb:
+    host: "localhost"
+    port: 27017
+    database: "retail-test"
+
+---
+spring:
   profiles: "staging"
   data.mongodb:
     host: "localhost"
