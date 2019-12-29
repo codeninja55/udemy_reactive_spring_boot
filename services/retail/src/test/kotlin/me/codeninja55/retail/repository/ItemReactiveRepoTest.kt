@@ -22,7 +22,7 @@ class ItemReactiveRepoTest {
         Item(null, "Aquila Dress Shoes", 299.0),
         Item(null, "Aquila Blair Embossed Der by Shoes", 99.0),
         Item(null, "Blaq Belt", 49.95),
-        Item(null, "Dress Shirt", 80.0)
+        Item(null, "Van Heusen Dress Shirt", 80.0)
     )
 
     @BeforeEach
@@ -44,6 +44,11 @@ class ItemReactiveRepoTest {
         StepVerifier.create(itemSaved)
             .expectSubscription()
             .expectNextMatches { i: Item -> i.id != null && i.description == "Bose QuietControl 30 Wireless Earphones" }
+            .verifyComplete()
+
+        StepVerifier.create(itemRepo.findAll())
+            .expectSubscription()
+            .expectNextCount(5)
             .verifyComplete()
     }
 
@@ -69,10 +74,58 @@ class ItemReactiveRepoTest {
 
     @Test
     fun testRetrieveItemByDesc() {
-        val item: Flux<Item> = itemRepo.findByDescription("Dress Shirt")
+        val item: Mono<Item> = itemRepo.findByDescription(itemsList[0].description)
         StepVerifier.create(item)
             .expectSubscription()
             .expectNextCount(1)
+            .verifyComplete()
+    }
+
+    @Test
+    fun testUpdateItem() {
+        val updatedItem: Mono<Item> = itemRepo.findByDescription("Van Heusen Dress Shirt")
+            .map { item: Item ->
+                item.price = 120.0
+                item
+            }
+            .flatMap { item: Item -> itemRepo.save(item) }
+
+        StepVerifier.create(updatedItem)
+            .expectSubscription()
+            .expectNextMatches { item -> item.price == 120.0 }
+            .verifyComplete()
+    }
+
+    @Test
+    fun testDeleteByFind() {
+        val deletedItem = itemRepo.findByDescription("Blaq Belt")
+            .map { item: Item -> item.id!! }
+            .flatMap { id: String ->
+                itemRepo.deleteById(id)
+            }
+
+        StepVerifier.create(deletedItem)
+            .expectSubscription()
+            .verifyComplete()
+
+        StepVerifier.create(itemRepo.findAll())
+            .expectSubscription()
+            .expectNextCount(3)
+            .verifyComplete()
+    }
+
+    @Test
+    fun testDeleteItem() {
+        val deletedItem: Mono<Void> = itemRepo.findByDescription("Aquila Blair Embossed Der by Shoes")
+            .flatMap { item: Item -> itemRepo.delete(item) }
+
+        StepVerifier.create(deletedItem)
+            .expectSubscription()
+            .verifyComplete()
+
+        StepVerifier.create(itemRepo.findAll())
+            .expectSubscription()
+            .expectNextCount(3)
             .verifyComplete()
     }
 

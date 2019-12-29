@@ -13,5 +13,5 @@ import reactor.core.publisher.Flux
 @AllArgsConstructor
 @NoArgsConstructor
 data class Item(@Id var id: String?,
-                val description: String,
-                val price: Double)
+                var description: String,
+                var price: Double)
