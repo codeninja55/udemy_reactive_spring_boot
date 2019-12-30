@@ -24,8 +24,10 @@ class ItemsRouter {
                         GET("/{id}", itemHandler::getItemById)
                         PUT("/{id}", itemHandler::putItemById)
                         DELETE("/{id}", itemHandler::deleteItemById)
+                        (GET("") and queryParam("desc") { true })
+                            .invoke(itemHandler::getItemByDescription)
                     }
-                    (GET("/item") and queryParam("desc") { true }).invoke(itemHandler::getItemByDescription)
+
                 }
             }
         }
