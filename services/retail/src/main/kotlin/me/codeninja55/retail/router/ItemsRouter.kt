@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.RouterFunction
+import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.router
 
@@ -24,8 +25,9 @@ class ItemsRouter {
                         GET("/{id}", itemHandler::getItemById)
                         PUT("/{id}", itemHandler::putItemById)
                         DELETE("/{id}", itemHandler::deleteItemById)
-                        (GET("") and queryParam("desc") { true })
-                            .invoke(itemHandler::getItemByDescription)
+                        (GET("") and queryParam("desc") { true }) { serverRequest: ServerRequest ->
+                            itemHandler.getItemByDescription(serverRequest)
+                        }
                     }
 
                 }
