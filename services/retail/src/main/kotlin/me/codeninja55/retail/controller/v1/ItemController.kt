@@ -1,5 +1,6 @@
 package me.codeninja55.retail.controller.v1
 
+/*
 import lombok.extern.slf4j.Slf4j
 import me.codeninja55.retail.constants.ItemConstants.Companion.ITEMS_END_POINT_V1
 import me.codeninja55.retail.constants.ItemConstants.Companion.ITEM_END_POINT_V1
@@ -47,4 +48,4 @@ class ItemController(@Autowired private val itemRepository: ItemReactiveReposito
         return itemRepository.deleteById(id)
     }
 
-}
+}*/
